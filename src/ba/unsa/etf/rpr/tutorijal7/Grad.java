@@ -3,6 +3,13 @@ package ba.unsa.etf.rpr.tutorijal7;
 public class Grad {
 
     private String naziv;
+
+    public Grad(String naziv, int brojStanovnika, double[] temperature) {
+        this.naziv = naziv;
+        this.brojStanovnika = brojStanovnika;
+        this.temperature = temperature;
+    }
+
     int brojStanovnika;
     double[] temperature;
 
