@@ -7,6 +7,26 @@ public class Drzava {
     double povrsina;
     String jedinicaZaPvrsinu;
     Grad glavniGrad;
+
+    public Drzava(String naziv, int brojStanovnika, double povrsina, String jedinicaZaPvrsinu, Grad glavniGrad) {
+        this.naziv = naziv;
+        this.brojStanovnika = brojStanovnika;
+        this.povrsina = povrsina;
+        this.jedinicaZaPvrsinu = jedinicaZaPvrsinu;
+        this.glavniGrad = glavniGrad;
+    }
+
+    @Override
+    public String toString() {
+        return "Drzava{" +
+                "naziv='" + naziv + '\'' +
+                ", brojStanovnika=" + brojStanovnika +
+                ", povrsina=" + povrsina +
+                ", jedinicaZaPvrsinu='" + jedinicaZaPvrsinu + '\'' +
+                ", glavniGrad=" + glavniGrad +
+                '}';
+    }
+
     public String getNaziv() {
         return naziv;
     }

@@ -15,4 +15,5 @@ public class UN {
     public UN(){
         drzave=new ArrayList<>();
     }
+    public void dodajDrzavu(Drzava d){drzave.add(d);};
 }
