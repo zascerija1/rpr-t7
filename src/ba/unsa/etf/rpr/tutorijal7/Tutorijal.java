@@ -1,11 +1,15 @@
 package ba.unsa.etf.rpr.tutorijal7;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -60,6 +64,110 @@ public class Tutorijal {
             }
         }
         return un;
+    }
+
+    public static Grad ucitajGrad(Element dijeteDrzave){
+
+        Grad glavniGrad = new Grad();
+        NodeList djecaGrada = dijeteDrzave.getChildNodes();
+
+        glavniGrad.setBrojStanovnika(Integer.parseInt(dijeteDrzave.getAttribute("stanovnika")));
+
+        for (int k = 0; k < djecaGrada.getLength(); k++) {
+
+            Node dijete3 = djecaGrada.item(k);
+
+            if (dijete3 instanceof Element) {
+
+                Element dijeteGrada = (Element) dijete3;
+
+                if (dijeteGrada.getTagName().equals("naziv")) {
+
+                    glavniGrad.setNaziv(dijeteGrada.getTextContent().trim());
+
+                }
+
+            }
+
+        }
+return glavniGrad;
+    }
+
+ public static Drzava ucitajDrzavu(Node dijete,ArrayList<Grad> gradovi) {
+     Drzava d = new Drzava();
+     if (dijete instanceof Element) {
+         Element drzava = (Element) dijete;
+
+         d.setBrojStanovnika(Integer.parseInt(drzava.getAttribute("stanovnika")));
+
+         NodeList djecaDrzave = drzava.getChildNodes();
+
+         for (int j = 0; j < djecaDrzave.getLength(); j++) {
+
+             Node dijete2 = djecaDrzave.item(j);
+
+             if (dijete2 instanceof Element) {
+
+                 Element dijeteDrzave = (Element) dijete2;
+
+                 if (dijeteDrzave.getTagName().equals("naziv")) {
+
+                     d.setNaziv(dijeteDrzave.getTextContent());
+
+                 } else if (dijeteDrzave.getTagName().equals("glavnigrad")) {
+
+                     Grad glavniGrad = ucitajGrad(dijeteDrzave);
+                     for (int i = 0; i < gradovi.size(); i++) {
+                         if (glavniGrad.equals(gradovi.get(i))) {
+                             glavniGrad.setTemperature(gradovi.get(i).getTemperature());
+                         }
+                     }
+
+                 } else if (dijeteDrzave.getTagName().equals("povrsina")) {
+
+                     d.setPovrsina(Double.parseDouble(dijeteDrzave.getTextContent()));
+
+                     d.setJedinicaZaPovrsinu(dijeteDrzave.getAttribute("jedinica"));
+
+                 }
+
+             }
+         }
+     }
+     return d;
+ }
+    public static UN ucitajXMLnersijalizirano (ArrayList<Grad> gradovi){
+        Document dat=null;
+        UN un=new UN();
+        ArrayList<Drzava> drzava=new ArrayList<>();
+
+        try{
+            DocumentBuilder doc= DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            dat=doc.parse(new File("drzave.xml"));
+        }
+        catch(Exception e){
+            System.out.println("datoteka nije uredu");
+            return null;
+        }
+        try{
+            Element root=dat.getDocumentElement();
+            NodeList drzave=root.getChildNodes();
+            int velicina=drzave.getLength();
+            for(int i=0;i<velicina;i++){
+                Node child=drzave.item(i);
+                drzava.add(ucitajDrzavu(child,gradovi));
+
+            }
+        }
+        catch (Exception e) {
+
+            System.out.println("Nije uredu: " + e);
+
+        }
+un.setDrzave(drzava);
+
+
+return un;
     }
 
     public static void zapisiXml(UN un){

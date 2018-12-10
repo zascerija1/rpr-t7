@@ -17,9 +17,6 @@
        </void>
       </object>
      </void>
-     <void property="jedinicaZaPvrsinu">
-      <string>km^2</string>
-     </void>
      <void property="naziv">
       <string>Bosna i Hercegovina</string>
      </void>
@@ -43,9 +40,6 @@
        </void>
       </object>
      </void>
-     <void property="jedinicaZaPvrsinu">
-      <string>km^2</string>
-     </void>
      <void property="naziv">
       <string>Hrvatska</string>
      </void>
@@ -68,9 +62,6 @@
         <null/>
        </void>
       </object>
-     </void>
-     <void property="jedinicaZaPvrsinu">
-      <string>km^2</string>
      </void>
      <void property="naziv">
       <string>Srbija</string>

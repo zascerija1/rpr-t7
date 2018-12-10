@@ -55,7 +55,7 @@ public class Drzava {
         return jedinicaZaPvrsinu;
     }
 
-    public void setJedinicaZaPvrsinu(String jedinicaZaPvrsinu) {
+    public void setJedinicaZaPovrsinu(String jedinicaZaPvrsinu) {
         this.jedinicaZaPvrsinu = jedinicaZaPvrsinu;
     }
 
